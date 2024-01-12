@@ -40,6 +40,13 @@ function App() {
       const newLocal = new Number(e.target.value);
       setFirstNumber(newLocal);
     }
+
+
+
+
+
+
+    
   };
   const handleSecondNumberChanged = (e) => {
     if (typeof Number(e.target.value) === "number") {

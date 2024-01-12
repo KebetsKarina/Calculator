@@ -1,0 +1,8 @@
+.button {
+    width: 200px;
+    height: 30px;
+    border-radius: 5px;
+    font-family: 'Roboto-Bold';
+    font-size: 18px;
+    color: #003366;
+}

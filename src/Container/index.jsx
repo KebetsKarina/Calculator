@@ -1,4 +1,3 @@
 export function Container({ children }) {
-    return <div className="App">{children}</div>;
-  }
-  
+  return <div className="App">{children}</div>;
+}

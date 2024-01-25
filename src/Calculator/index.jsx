@@ -4,63 +4,74 @@ import { createContext, useContext } from "react";
 export const ThemeContext = createContext({});
 
 export function Calculator() {
-  const [firstNumber, setFirstNumber] = useState(0);
-  const [secondNumber, setSecondNumber] = useState(0);
-  const [operation, setOperation] = useState("+");
-  const [result, setresult] = useState("");
+  const [firstNumber, setFirstNumber] = useState("");
+  const [secondNumber, setSecondNumber] = useState("");
+  const [operation, setOperation] = useState();
+  const [result, setResult] = useState();
+
   const handleCalculatePressed = () => {
-    debugger
+    // debugger;
     if (operation === "+") {
       let result = firstNumber + secondNumber;
-      setresult(result);
+      setResult(result);
     }
     if (operation === "-") {
       let result = firstNumber - secondNumber;
-      setresult(result);
+      setResult(result);
     }
     if (operation === "*") {
       let result = firstNumber * secondNumber;
-      setresult(result);
+      setResult(result);
     }
     if (operation === "/") {
       let result = firstNumber / secondNumber;
       if (secondNumber != 0) {
-        setresult(result);
+        setResult(result);
       } else {
         result = "Cannot execute";
-        setresult(result);
+        setResult(result);
       }
     }
   };
-  const handleFirstNumberChanged = (e) => {
-    debugger
-    if (typeof Number(e.target.value) === "number") {
-      const newLocal = new Number(e.target.value);
-      setFirstNumber(newLocal);
+
+  const handleNumberChanged = (e) => {
+    // debugger
+    if (
+      !isNaN(Number(e.target.value)) &&
+      (operation === undefined || operation === NaN)
+    ) {
+      setFirstNumber(Number(firstNumber + e.target.value));
     }
-  };
-  const handleSecondNumberChanged = (e) => {
-    if (typeof Number(e.target.value) === "number") {
-      setSecondNumber(new Number(e.target.value));
+
+    if (isNaN(Number(e.target.value))) {
+      setOperation(e.target.value);
     }
-  };
-  const handleOperationChanged = (e) => {
-    setOperation(e.target.value);
+
+    if (firstNumber != "" && operation != undefined) {
+      setSecondNumber(Number(secondNumber + e.target.value));
+    }
+
+    if (firstNumber != "" && secondNumber != "" && e.target.value === "=") {
+      handleCalculatePressed();
+    }
   };
 
   const value = {
+    handleNumberChanged: handleNumberChanged,
     firstNumber: firstNumber,
-    handleFirstNumberChanged: handleFirstNumberChanged,
     secondNumber: secondNumber,
-    handleSecondNumberChanged: handleSecondNumberChanged,
     operation: operation,
-    handleOperationChanged: handleOperationChanged,
     handleCalculatePressed: handleCalculatePressed,
     result: result,
   };
+
   return (
     <ThemeContext.Provider value={value}>
-      <Layout/>
+      <div>first {firstNumber}</div>
+      <div>second {secondNumber}</div>
+      <div>operation {operation}</div>
+      <div>result {result}</div>
+      <Layout />
     </ThemeContext.Provider>
   );
 }

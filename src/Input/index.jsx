@@ -1,5 +1,4 @@
 import style from "./style.module.css";
-import { handleNumberChanged } from "../Calculator";
 
 export function Input({ value, onValueChaged, name, type }) {
   return (

@@ -47,12 +47,30 @@ export function Calculator() {
       setOperation(e.target.value);
     }
 
-    if (firstNumber != "" && operation != undefined) {
+    if (
+      !isNaN(Number(e.target.value)) &&
+      firstNumber !== "" &&
+      operation !== undefined
+    ) {
       setSecondNumber(Number(secondNumber + e.target.value));
     }
 
-    if (firstNumber != "" && secondNumber != "" && e.target.value === "=") {
+    if (firstNumber !== "" && secondNumber !== "" && isNaN(Number(e.target.value))) {
       handleCalculatePressed();
+    }
+
+    if (result !== undefined && isNaN(Number(e.target.value))) {
+      setFirstNumber(result);
+      setOperation(e.target.value);
+      setSecondNumber("");
+    }
+
+    if (
+      !isNaN(Number(e.target.value)) &&
+      firstNumber !== "" &&
+      operation !== undefined
+    ) {
+      setSecondNumber(Number(secondNumber + e.target.value));
     }
   };
 
@@ -67,10 +85,6 @@ export function Calculator() {
 
   return (
     <ThemeContext.Provider value={value}>
-      <div>first {firstNumber}</div>
-      <div>second {secondNumber}</div>
-      <div>operation {operation}</div>
-      <div>result {result}</div>
       <Layout />
     </ThemeContext.Provider>
   );
